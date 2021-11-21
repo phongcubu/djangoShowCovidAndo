@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Covid19Data</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+                <tr>
+                    <th>State </th>
+                    <th>Active</th>
+                    <th>Confirmed</th>
+                    <th>Deaths</th>
+                    <th>Recovered</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for state in data.statewise %}
+        <tr>
+            <td>{{ state.state }}</td>
+            <td>{{ state.active }}</td>
+            <td>{{ state.confirmed }}</td>
+            <td>{{ state.deaths }}</td>
+            <td>{{ state.recovered }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{#    chart.js   #}
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const labels = {{ labels|safe }}
+const data = {
+  labels: labels,
+  datasets: [{
+    label: 'Bảng covid ấn độ ',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: {{ chartdata|safe }}
+  }]
+};
+const config = {
+  type: 'line',
+  data: data,
+  options: {}
+};
+var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+
+</body>
+</html>
